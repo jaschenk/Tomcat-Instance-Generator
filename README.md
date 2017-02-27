@@ -67,5 +67,5 @@ Use the applicable scripts in the 'bin' directory.  To Bootstrap the GUI on
 Windows Environment, please use the pre-built executable to properly Bootstrap JavaFX.
 
 
-![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/master/Tomcat-Instance-Generator/doc/images/TomcatInstanceGenerator_01.png)
+![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/master/doc/images/TomcatInstanceGenerator_01.png)
 
