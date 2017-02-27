@@ -1,0 +1,38 @@
+destinationFolder: C:\Users\jeffaschenk@gmail.com\MyWorkspace
+instanceManagementProperties:
+- {propertyName: com.managecat.controller.url, propertyValue: 'http://webdevtest-01:8080/controller/'}
+- {propertyName: com.managecat.collector.url, propertyValue: 'http://webdevtest-01:8080/collector/'}
+- {propertyName: com.managecat.console.agent.groupname, propertyValue: Development}
+- {propertyName: com.managecat.console.agent.servername, propertyValue: '${TOMCAT_INSTANCE_NAME}'}
+- {propertyName: com.managecat.console.agent.hostname, propertyValue: '${TOMCAT_INSTANCE_HOSTNAME}'}
+- {propertyName: com.managecat.console.agent.port, propertyValue: '${TOMCAT_PRIMARY_PORT}'}
+- {propertyName: com.managecat.console.agent.contextname, propertyValue: console}
+- {propertyName: com.managecat.console.agent.secure, propertyValue: 'false'}
+- {propertyName: com.managecat.console.agent.accountkey, propertyValue: 70f90d8cf528cf0d472ec5c323927586}
+- {propertyName: '# com.sun.management.jmxremote', propertyValue: ''}
+- {propertyName: '# com.sun.management.jmxremote.port', propertyValue: '65420'}
+- {propertyName: '# com.sun.management.jmxremote.ssl', propertyValue: 'false'}
+- {propertyName: '# com.sun.management.jmxremote.authenticate', propertyValue: 'false'}
+shutdownPort: 18005
+instanceProperties:
+- {propertyName: welcome.message, propertyValue: '"Hello to Tomcat Generation
+    Utility"'}
+jvmOptionXmx: 2g
+tomcatVersion: v8.5.11
+keystoreCredentials: ''
+instanceName: Test-FooBar-999
+protocolSecurePort: org.apache.coyote.http11.Http11NioProtocol
+ajpPort: 18009
+keystoreSourceFilename: ''
+jvmOptionXms: 2g
+instanceManagement: true
+primaryPort: 18080
+jvmOptionXss: 256m
+jvmOptions: [-server, '# -Xdebug', '# -Xrunjdwp:transport=dt_socket,address=64420,suspend=n,server=y']
+securePort: 18443
+environmentName: DEV
+protocolPrimaryPort: HTTP/1.1
+instanceUUID: 0c4cf885-11ca-4b5e-8df0-66769626f841
+compressed: false
+jvmOptionXXMaxMetaspaceSize: 768m
+secureInstance: true

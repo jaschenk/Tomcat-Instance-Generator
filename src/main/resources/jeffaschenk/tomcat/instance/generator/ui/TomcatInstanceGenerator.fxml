@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jeffaschenk.tomcat.instance.generator.ui.Controller">
+<children>
+   <VBox fx:id="logoArea1" layoutX="20.0" layoutY="27.0" prefHeight="48.0" prefWidth="152.0" />
+   <VBox fx:id="logoArea2" layoutX="819.0" layoutY="7.0" prefHeight="90.0" prefWidth="152.0" />
+   <Label fx:id="instanceDefLabel" alignment="CENTER" layoutX="182.0" layoutY="9.0" minHeight="16.0" minWidth="12.0" prefHeight="83.0" prefWidth="629.0" text="Tomcat Instance Generator" textAlignment="RIGHT" textFill="#bb1a6f">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+
+   <TabPane fx:id="tabPane" layoutX="20.0" layoutY="113.0" prefHeight="391.0" prefWidth="950.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+         <Tab fx:id="instanceTab" text="Instance Definition">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="352.0" prefWidth="950.0">
+                     <children>
+                  
+                        <Label fx:id="environment" layoutX="11.0" layoutY="85.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="127.0" text="Instance Environment:" textAlignment="RIGHT" />
+                        <ChoiceBox fx:id="environmentChoice" layoutX="137.0" layoutY="79.0" prefHeight="27.0" prefWidth="193.0" />
+
+                        <Label fx:id="tcversion" layoutX="42.0" layoutY="116.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="88.0" text="Tomcat Version:" textAlignment="RIGHT" />
+                        <ChoiceBox fx:id="tcVersionChoice" layoutX="137.0" layoutY="113.0" prefHeight="27.0" prefWidth="193.0" />
+
+                        <Label fx:id="destinationFolderLabel" layoutX="27.0" layoutY="154.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="104.0" text="Destination Folder:" textAlignment="RIGHT" />
+                        <TextField fx:id="destinationFolder" layoutX="137.0" layoutY="148.0" prefHeight="25.0" prefWidth="308.0" />
+                        
+                        <CheckBox fx:id="compressFolderOutput" layoutX="138.0" layoutY="183.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="180.0" text="Compress Resulting Instance" />
+                        <Button fx:id="fileDirectorySelectionButton" layoutX="453.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleFileDirButtonAction" text="..." />
+                        <Label fx:id="instanceNameLabel" layoutX="47.0" layoutY="50.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="91.0" text="Instance Name:" textAlignment="RIGHT" />
+                        <TextField fx:id="instanceName" layoutX="137.0" layoutY="47.0" prefHeight="25.0" prefWidth="308.0" />
+                        <Label layoutX="42.0" layoutY="14.0" prefHeight="17.0" prefWidth="658.0" text="Specify Instance Name, Environment, Tomcat Version and Destination Folder where the Instance should be created." textFill="#1e6dc3">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="449.0" layoutY="46.0" prefHeight="18.0" prefWidth="9.0" text="*" textAlignment="CENTER" textFill="#cd0f0f">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="333.0" layoutY="81.0" prefHeight="18.0" prefWidth="9.0" text="*" textAlignment="CENTER" textFill="#cd0f0f">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="333.0" layoutY="115.0" prefHeight="18.0" prefWidth="9.0" text="*" textAlignment="CENTER" textFill="#cd0f0f">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="486.0" layoutY="149.0" prefHeight="18.0" prefWidth="9.0" text="*" textAlignment="CENTER" textFill="#cd0f0f">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+               </AnchorPane>
+            </content>
+         </Tab>
+          <Tab fx:id="instancePortsTab" text="Instance Ports">
+              <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <Label fx:id="primaryPortLabel" layoutX="68.0" layoutY="58.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="72.0" text="Primary Port:" textAlignment="RIGHT" />
+                          <TextField fx:id="primaryPort" layoutX="141.0" layoutY="53.0" prefHeight="27.0" prefWidth="52.0" />
+                          <Label fx:id="protocolPrimaryPortLabel" layoutX="88.0" layoutY="96.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="52.0" text="Protocol:" textAlignment="RIGHT" />
+                          <ChoiceBox fx:id="protocolPrimaryPort" layoutX="140.0" layoutY="91.0" prefHeight="27.0" prefWidth="258.0" />
+                          <Label fx:id="shutdownPortLabel" layoutX="56.0" layoutY="136.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="83.0" text="Shutdown Port:" textAlignment="RIGHT" />
+                          <TextField fx:id="shutdownPort" layoutX="140.0" layoutY="131.0" prefHeight="27.0" prefWidth="52.0" />
+                          <Label fx:id="ajpPortLabel" layoutX="293.0" layoutY="136.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="52.0" text="AJP Port:" textAlignment="RIGHT" />
+                          <TextField fx:id="ajpPort" layoutX="344.0" layoutY="131.0" prefHeight="27.0" prefWidth="52.0" />
+                          <Label layoutX="42.0" layoutY="14.0" prefHeight="17.0" prefWidth="658.0" text="Specify Primary Ports and Associated Protocol." textFill="#1e6dc3">
+                              <font>
+                                  <Font name="System Bold Italic" size="12.0" />
+                              </font>
+                          </Label>
+                      </children>
+                  </AnchorPane>
+              </content>
+          </Tab>
+         <Tab fx:id="instanceSecurityTab" text="Instance Security">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                         <CheckBox fx:id="secureInstance" layoutX="141.0" layoutY="42.0" mnemonicParsing="false" onAction="#handleSecureInstanceCheckBoxAction" prefHeight="18.0" prefWidth="118.0" text="Secure Instance" />
+                         <Label fx:id="keystoreSourceLabel" layoutX="57.0" layoutY="146.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="74.0" text="Keystore File:" textAlignment="RIGHT" />
+                         <TextField fx:id="keystoreSourceFilename" layoutX="137.0" layoutY="144.0" prefHeight="25.0" prefWidth="308.0" />
+                         <Button fx:id="keystoreSourceSelectionButton" layoutX="453.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleKeystoreFileButtonAction" text="..." />
+                         <Label fx:id="keystoreCredentialsLabel" layoutX="16.0" layoutY="181.0" prefHeight="17.0" prefWidth="117.0" text="Keystore Credentials:" />
+                         <PasswordField fx:id="keystoreCredentials" layoutX="137.0" layoutY="177.0" />
+
+                         <Label fx:id="securePortLabel" layoutX="75.0" layoutY="77.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="65.0" text="Secure Port:" textAlignment="RIGHT" />
+                         <TextField fx:id="securePort" layoutX="140.0" layoutY="70.0" prefHeight="27.0" prefWidth="52.0" />
+                         <Label fx:id="protocolSecurePortLabel" layoutX="88.0" layoutY="108.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="52.0" text="Protocol:" textAlignment="RIGHT" />
+                         <ChoiceBox fx:id="protocolSecurePort" layoutX="140.0" layoutY="104.0" prefHeight="27.0" prefWidth="265.0" />
+                         <Label fx:id="secureInstanceInfoLabel" layoutX="42.0" layoutY="14.0" prefHeight="17.0" prefWidth="658.0" text="Specify Instance Security if Applicable" textFill="#1e6dc3">
+                             <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                             </font>
+                         </Label>
+                     </children></AnchorPane>
+            </content>
+         </Tab>
+         <Tab fx:id="jvmOptionsTab" text="JVM Options">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="296.0" prefWidth="949.0">
+                <children>
+                <Label layoutX="14.0" layoutY="8.0" prefHeight="17.0" prefWidth="917.0" text="Specify Instance JVM Options applicable for this Instance.  Care should be taken in selecting Memory Allocations!" textFill="#c95411">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                    </font>
+                </Label>
+                    <Label layoutX="34.0" layoutY="93.0" prefHeight="17.0" prefWidth="784.0" text="To Add, Specify Instance JVM Option and applicable Value.  To Remove, set JVM Option to Empty or a Null Value." textFill="#1e6dc3">
+                        <font>
+                            <Font name="System Bold Italic" size="12.0" />
+                        </font>
+                    </Label>
+                    <TableView fx:id="instanceJVMOptionsTableView" editable="true" layoutX="23.0" layoutY="112.0" prefHeight="195.0" prefWidth="904.0" tableMenuButtonVisible="false">
+                        <columns>
+                            <TableColumn fx:id="instanceJVMOptionsNameColumn" prefWidth="903.0" text="JVM Option" />
+                        </columns>
+                    </TableView>
+                    <Label layoutX="57.0" layoutY="325.0" text="JVM Option:">
+                        <font>
+                            <Font name="System Bold" size="12.0" />
+                        </font>
+                    </Label>
+                    <TextField fx:id="newInstanceJVMOptionsName" layoutX="133.0" layoutY="321.0" prefHeight="25.0" prefWidth="466.0" />
+                    <Button fx:id="newInstanceJVMOptionsButton" layoutX="631.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleNewInstanceJVMOptionsButtonAction" text="Add" />
+
+                        <Label layoutX="38.0" layoutY="34.0" prefHeight="17.0" prefWidth="166.0" text="Initial Java Heap Size -Xms:" textFill="#145f90">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                       <ChoiceBox fx:id="jvmOptionXms" layoutX="198.0" layoutY="30.0" prefHeight="27.0" prefWidth="65.0" />
+                        <Label layoutX="23.0" layoutY="65.0" prefHeight="17.0" prefWidth="175.0" text="Maxium Java Heap Size -Xmx:" textFill="#145f90">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="jvmOptionXmx" layoutX="198.0" layoutY="61.0" prefHeight="27.0" prefWidth="65.0" />
+                        <Label layoutX="287.0" layoutY="34.0" prefHeight="17.0" prefWidth="166.0" text="Java Thread Stack Size -Xss:" textFill="#145f90">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="jvmOptionXss" layoutX="447.0" layoutY="30.0" prefHeight="27.0" prefWidth="65.0" />
+                        <Label layoutX="539.0" layoutY="26.0" prefHeight="35.0" prefWidth="292.0" text="Java8 Max MetaSpace Size -XX:MaxMetaspaceSize:" textFill="#145f90">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="jvmOptionXXMaxMetaspaceSize" layoutX="832.0" layoutY="30.0" prefHeight="27.0" prefWidth="65.0" />
+                </children>
+               </AnchorPane>
+            </content>
+         </Tab>
+         <Tab fx:id="instancePropertiesTab" text="Instance Properties">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="296.0" prefWidth="949.0">
+                   <children>
+                       <Label layoutX="34.0" layoutY="5.0" prefHeight="17.0" prefWidth="691.0" text="To Add, Specify Instance Property Name and applicable Value.  To Remove, set Property Name to Empty or a Null Value." textFill="#1e6dc3">
+                           <font>
+                               <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                       </Label>
+                   <TableView fx:id="instancePropertyTableView" editable="true" layoutX="23.0" layoutY="30.0" prefHeight="277.0" prefWidth="904.0" tableMenuButtonVisible="false">
+                       <columns>
+                           <TableColumn fx:id="instancePropertyNameColumn" prefWidth="410.0" text="Property Name" />
+                           <TableColumn fx:id="instancePropertyValueColumn" prefWidth="493.0" text="Property Value" />
+                       </columns>
+                   </TableView>
+                        <Label layoutX="34.0" layoutY="325.0" text="Property Name:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="newInstancePropertyName" layoutX="133.0" layoutY="321.0" prefHeight="25.0" prefWidth="261.0" />
+                        <Label layoutX="426.0" layoutY="325.0" text="Property Value:">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="newInstancePropertyValue" layoutX="525.0" layoutY="321.0" prefHeight="25.0" prefWidth="261.0" />
+                        <Button fx:id="newInstancePropertyButton" layoutX="821.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleNewInstancePropertyButtonAction" text="Add" />
+                   </children>
+               </AnchorPane>
+            </content>
+         </Tab>
+         <Tab fx:id="instanceManagementTab" text="Instance Management">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="296.0" prefWidth="949.0">
+                     <children>
+                         <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="677.0" text="Specify Instance Management Properties applicable for this Instance." textFill="#1e6dc3">
+                             <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                             </font>
+                         </Label>
+                        <CheckBox fx:id="instanceManagement" layoutX="36.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleInstanceManagementCheckBoxAction" prefHeight="17.0" prefWidth="152.0" text="Instance Management" />
+                         <Label fx:id="instanceManagementInfoLabel" layoutX="34.0" layoutY="62.0" prefHeight="17.0" prefWidth="784.0" text="To Add, Specify Instance Management Property Name and applicable Value.  To Remove, set Property Name to Empty or a Null Value." textFill="#1e6dc3">
+                             <font>
+                                 <Font name="System Bold Italic" size="12.0" />
+                             </font>
+                         </Label>
+                         <TableView fx:id="instanceManagementTableView" editable="true" layoutX="23.0" layoutY="79.0" prefHeight="228.0" prefWidth="904.0" tableMenuButtonVisible="false">
+                             <columns>
+                                 <TableColumn fx:id="instanceManagementNameColumn" prefWidth="410.0" text="Management Property Name" />
+                                 <TableColumn fx:id="instanceManagementValueColumn" prefWidth="493.0" text="Management Property Value" />
+                             </columns>
+                         </TableView>
+                         <Label fx:id="instanceManagementPropertyNameLabel" layoutX="34.0" layoutY="325.0" text="Property Name:">
+                             <font>
+                                 <Font name="System Bold" size="12.0" />
+                             </font>
+                         </Label>
+                         <TextField fx:id="newInstanceManagementName" layoutX="133.0" layoutY="321.0" prefHeight="25.0" prefWidth="261.0" />
+                         <Label fx:id="instanceManagementPropertyValueLabel" layoutX="426.0" layoutY="325.0" text="Property Value:">
+                             <font>
+                                 <Font name="System Bold" size="12.0" />
+                             </font>
+                         </Label>
+                         <TextField fx:id="newInstanceManagementValue" layoutX="525.0" layoutY="321.0" prefHeight="25.0" prefWidth="261.0" />
+                         <Button fx:id="newInstanceManagementButton" layoutX="821.0" layoutY="321.0" mnemonicParsing="false" onAction="#handleNewInstanceManagementButtonAction" text="Add" />
+
+                     </children></AnchorPane>
+            </content>
+         </Tab>
+         <Tab fx:id="yamlConfigurationManagementTab" text="YAML Configuration Management">
+            <content>
+               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                       <children>
+                           <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="718.0" text="Specify existing YAML Configuration File to Load previous Instance definition for Generation or Save Current Configuration." textFill="#1e6dc3">
+                               <font>
+                                   <Font name="System Bold Italic" size="12.0" />
+                               </font>
+                           </Label>
+                           <Label fx:id="yamlSourceLabel" layoutX="32.0" layoutY="61.0" minHeight="16.0" minWidth="12.0" prefHeight="17.0" prefWidth="89.0" text="YAML Filename:" textAlignment="RIGHT" />
+                           <TextField fx:id="yamlConfigurationFilename" layoutX="122.0" layoutY="57.0" prefHeight="25.0" prefWidth="308.0" />
+                           <Button fx:id="yamlFileSelectionButton" layoutX="438.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleYamlConfigurationFileButtonAction" text="..." />
+                           <Button fx:id="loadYAMLButton" layoutX="68.0" layoutY="116.0" mnemonicParsing="false" onAction="#handleLoadYAMLButtonAction" prefHeight="25.0" prefWidth="225.0" text="Load Existing YAML Configuration ..." />
+                        <Button fx:id="saveYAMLButton" layoutX="68.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleSaveYAMLButtonAction" prefHeight="25.0" prefWidth="226.0" text="Save Current Configuration as  YAML ..." />
+                       </children>
+               </AnchorPane>
+            </content>
+         </Tab>
+
+          <Tab fx:id="generationLogTab" text="Generation Log">
+              <content>
+                  <AnchorPane fx:id="generationLogAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="296.0" prefWidth="949.0" />
+              </content>
+          </Tab>
+      </tabs>
+   </TabPane>
+   <ProgressBar fx:id="progressBar" layoutX="240.0" layoutY="515.0" prefHeight="18.0" prefWidth="318.0" progress="0.0" />
+   <Button fx:id="generateButton" layoutX="42.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleGenerateButtonAction" text="Generate" />
+   <Button fx:id="cancelButton" layoutX="172.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
+   <Button fx:id="resetButton" layoutX="117.0" layoutY="511.0" mnemonicParsing="false" onAction="#handleResetButtonAction" text="Reset" />
+   <TextField fx:id="messageResponse" editable="false" layoutX="42.0" layoutY="545.0" prefHeight="27.0" prefWidth="885.0" />
+
+
+
+</children>
+</AnchorPane>
