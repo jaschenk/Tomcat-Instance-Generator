@@ -58,9 +58,9 @@ applied.  [Download Here.](http://www.oracle.com/technetwork/java/javase/downloa
 
 ## Building
 Building primary Artifact, simple perform the following command:
-   {{{ 
+  ``` 
       mvn clean package 
-   }}}
+  ```
 
 ## Running
 Use the applicable scripts in the 'bin' directory.  To Bootstrap the GUI on
