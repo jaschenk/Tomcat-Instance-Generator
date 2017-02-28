@@ -57,15 +57,16 @@ applied.  [Download Here.](http://www.oracle.com/technetwork/java/javase/downloa
 3. Maven
 
 ## Building
-Building primary Artifact, simple perform the following command:
+Building primary Artifact, which will contain a full dependency bundle.  Simple perform the following command:
   ``` 
       mvn clean package 
   ```
+  
+  To build the JavaFX Artifact to execute on Windows, I have used IntelliJ to create an Artifact bundle containing an executable Windows bootstrap program wrapper.  For Linux, you simple use the supplied scripts in the distribution. 
 
 ## Running
-Use the applicable scripts in the 'bin' directory.  To Bootstrap the GUI on
-Windows Environment, please use the pre-built executable to properly Bootstrap JavaFX.
+Obtain the Release from ![here](https://github.com/jaschenk/Tomcat-Instance-Generator/releases/download/v1.0.0.0/Tomcat-Instance-Generator_distribution_20170227.zip). Use the applicable scripts in the 'app' directory of the distribution.  For Bootstrapping the GUI on Windows, please use the pre-built executable to properly Bootstrap JavaFX, which is found directly in the distribution.
 
-
+## Main UI
 ![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/master/doc/images/TomcatInstanceGenerator_01.png)
 
