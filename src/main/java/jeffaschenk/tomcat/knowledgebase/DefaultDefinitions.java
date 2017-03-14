@@ -62,7 +62,7 @@ public final class DefaultDefinitions {
      */
     public static final String[] DEFAULT_TOMCAT_VERSIONS =
             {
-                    "v8.5.11", "v9.0.0.M17"
+                    "v8.5.12", "v9.0.0.M17"
             };
     public static final String DEFAULT_TOMCAT_VERSION_SELECTED = DEFAULT_TOMCAT_VERSIONS[0];
 
@@ -82,11 +82,14 @@ public final class DefaultDefinitions {
      * To Add a New version, simply add the Archive Name and Length in Bytes of Archive.
      *
      */
-    public static final List<TomcatArchive> DEFAULT_TOMCAT_ARCHIVES = new ArrayList<>(1);
+    public static final List<TomcatArchive> DEFAULT_TOMCAT_ARCHIVES = new ArrayList<>(2);
     static {
 
              DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.11.zip",
                      9858689L, "16529edcce866ee493b11e315816213b24492d28"));
+
+             DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.12.zip",
+                     9927423L, "dcc5b79f25ffa06d6ae615b48b441870792cb4d4"));
     }
 
     /**

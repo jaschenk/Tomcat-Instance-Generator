@@ -4,7 +4,7 @@
     <groupId>jeffaschenk</groupId>
     <artifactId>TomcatInstanceGenerator</artifactId>
     <name>TomcatInstanceGenerator</name>
-    <version>1.0.0.0-SNAPSHOT</version>
+    <version>1.0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Tomcat Instance Generation Utility</description>
     

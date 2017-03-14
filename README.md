@@ -40,7 +40,7 @@ Provides easy configuration of a Tomcat Instance.
   * Apache Mirror used: http://apache.mirrors.pair.com/tomcat
   * ManageCat License Key
 * Internet access required, as initial copy of Apache Tomcat is Downloaded if not detected from previous generation.
-* Currently only V8.5.11 is available for download.
+* Currently only V8.5.12 is available for download.
   * To add a version, simple modify the 'Default Definitions' class to add the new version specifications.
     * Name, Length of Archive, SHA-1 Hash of Artifact.
 * Tool has capability of multiple versions, but V9 is not at a complete or final milestone.

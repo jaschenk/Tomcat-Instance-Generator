@@ -21,7 +21,7 @@ instanceProperties:
 - {propertyName: welcome.message, propertyValue: '"Hello to Tomcat Generation
     Utility"'}
 jvmOptionXmx: 2g
-tomcatVersion: v8.5.11
+tomcatVersion: v8.5.12
 keystoreCredentials: ''
 instanceName: Test-FooBar-With-Vaidation-Failures
 protocolSecurePort: org.apache.coyote.http11.Http11NioProtocol

@@ -552,7 +552,7 @@ public final class TomcatInstance {
         tomcatInstanceReplacementMap.put(TOMCAT_SHUTDOWN_PORT_TAG, shutdownPort.toString());
         tomcatInstanceReplacementMap.put(TOMCAT_AJP_PORT_TAG, ajpPort.toString());
 
-        tomcatInstanceReplacementMap.put(TOMCAT_SECURE_PORT_TAG, securePort.toString());
+        tomcatInstanceReplacementMap.put(TOMCAT_SECURE_PORT_TAG, (securePort==null)?"18443":securePort.toString());
         tomcatInstanceReplacementMap.put(TOMCAT_SECURE_PORT_PROTOCOL_TAG, protocolSecurePort);
         tomcatInstanceReplacementMap.put(TOMCAT_KEYSTORE_TAG, keystoreSourceFilename);
         tomcatInstanceReplacementMap.put(TOMCAT_KEYSTORE_CREDENTIALS_TAG, keystoreCredentials);
