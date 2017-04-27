@@ -37,7 +37,8 @@ public final class DefaultDefinitions {
      * Apache Mirrors URL
      */
     public static final String APACHE_MIRRORS_HEAD_URL =
-            "http://apache.mirrors.pair.com/tomcat";
+            "http://apache.cs.utah.edu/tomcat";
+     // Previous Mirror Used: "http://apache.mirrors.pair.com/tomcat";
 
     /**
      * Apache Tomcat Mirror Version Folders
@@ -62,7 +63,7 @@ public final class DefaultDefinitions {
      */
     public static final String[] DEFAULT_TOMCAT_VERSIONS =
             {
-                    "v8.5.12", "v9.0.0.M17"
+                    "v8.5.14", "v9.0.0.M17"
             };
     public static final String DEFAULT_TOMCAT_VERSION_SELECTED = DEFAULT_TOMCAT_VERSIONS[0];
 
@@ -90,6 +91,9 @@ public final class DefaultDefinitions {
 
              DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.12.zip",
                      9927423L, "dcc5b79f25ffa06d6ae615b48b441870792cb4d4"));
+
+             DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.14.zip",
+                     9951552L, "93d121a559819476ef522124393a36608bfa2288"));
     }
 
     /**
