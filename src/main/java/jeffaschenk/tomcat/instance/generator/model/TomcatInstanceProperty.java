@@ -1,4 +1,4 @@
-package jeffaschenk.tomcat.instance.generator.builders;
+package jeffaschenk.tomcat.instance.generator.model;
 
 import java.util.HashMap;
 import java.util.Map;

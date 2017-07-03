@@ -1,6 +1,5 @@
 package jeffaschenk.tomcat.knowledgebase;
 
-import jeffaschenk.tomcat.instance.generator.builders.TomcatArchive;
 import jeffaschenk.tomcat.instance.generator.ui.InstanceJVMOptionRow;
 import jeffaschenk.tomcat.instance.generator.ui.InstancePropertyRow;
 
@@ -22,6 +21,11 @@ import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.TOMCAT_PRI
  */
 public final class DefaultDefinitions {
     /**
+     * External Property Name
+     */
+    public static final String TOMCAT_ARCHIVE_PROPERTY_NAME =
+            "tc.archives";
+    /**
      * Constants
      */
     protected static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -32,13 +36,6 @@ public final class DefaultDefinitions {
      */
     public static final String MANAGECAT_LICENSE_KEY =
             "00000000000000000000000000000000";
-
-    /**
-     * Apache Mirrors URL
-     */
-    public static final String APACHE_MIRRORS_HEAD_URL =
-            "http://apache.cs.utah.edu/tomcat";
-     // Previous Mirror Used: "http://apache.mirrors.pair.com/tomcat";
 
     /**
      * Apache Tomcat Mirror Version Folders
@@ -57,13 +54,14 @@ public final class DefaultDefinitions {
                     "PRODUCTION"
             };
     public static final String DEFAULT_ENVIRONMENT_SELECTED = DEFAULT_ENVIRONNMENT[0];
-
+    
     /**
-     * Default Tomcat Versions
+     * Default Tomcat Versions,
+     * these values must match what is available on the Tomcat Available Archives, Archive Short Name.
      */
     public static final String[] DEFAULT_TOMCAT_VERSIONS =
             {
-                    "v8.5.14", "v9.0.0.M17"
+                    "v8.5", "v9.0"
             };
     public static final String DEFAULT_TOMCAT_VERSION_SELECTED = DEFAULT_TOMCAT_VERSIONS[0];
 
@@ -74,26 +72,6 @@ public final class DefaultDefinitions {
     static {
             TOMCAT_VERSIONS_TO_SHORT_NAME.put(DEFAULT_TOMCAT_VERSIONS[0], "v85");
             TOMCAT_VERSIONS_TO_SHORT_NAME.put(DEFAULT_TOMCAT_VERSIONS[1], "v90");
-    }
-
-    /**
-     * Tomcat Version Archive Sizes, to validate the archive is good,
-     * checking checksums and size in the number of bytes are checked.
-     *
-     * To Add a New version, simply add the Archive Name and Length in Bytes of Archive.
-     *
-     */
-    public static final List<TomcatArchive> DEFAULT_TOMCAT_ARCHIVES = new ArrayList<>(2);
-    static {
-
-             DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.11.zip",
-                     9858689L, "16529edcce866ee493b11e315816213b24492d28"));
-
-             DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.12.zip",
-                     9927423L, "dcc5b79f25ffa06d6ae615b48b441870792cb4d4"));
-
-             DEFAULT_TOMCAT_ARCHIVES.add(new TomcatArchive("apache-tomcat-8.5.14.zip",
-                     9951552L, "93d121a559819476ef522124393a36608bfa2288"));
     }
 
     /**

@@ -1,6 +1,7 @@
 package jeffaschenk.tomcat.instance.generator.builders;
 
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

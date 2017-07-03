@@ -1,9 +1,9 @@
 package jeffaschenk.tomcat.instance.generator.ui;
 
-import jeffaschenk.tomcat.instance.generator.builders.TomcatInstance;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
 import jeffaschenk.tomcat.instance.generator.builders.TomcatInstanceBuilderForUI;
 import jeffaschenk.tomcat.instance.generator.builders.TomcatInstanceBuilderHelper;
-import jeffaschenk.tomcat.instance.generator.builders.TomcatInstanceProperty;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstanceProperty;
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
 import jeffaschenk.tomcat.instance.generator.logger.Level;
 import jeffaschenk.tomcat.instance.generator.logger.Log;

@@ -1,0 +1,5 @@
+apacheMirrorHeadUrl: http://apache.cs.utah.edu/tomcat
+tomcatVersion_8.5.11: apache-tomcat-8.5.11 v8.5 false 9858689 16529edcce866ee493b11e315816213b24492d28
+tomcatVersion_8.5.12: apache-tomcat-8.5.12 v8.5 false 9927423 dcc5b79f25ffa06d6ae615b48b441870792cb4d4
+tomcatVersion_8.5.14: apache-tomcat-8.5.14 v8.5 false 9951552 93d121a559819476ef522124393a36608bfa2288
+tomcatVersion_8.5.16: apache-tomcat-8.5.16 v8.5 true 9992463 13bf717a94a7b8d5296e678a70004a65f0c0409f

@@ -1,6 +1,8 @@
 package jeffaschenk.tomcat.instance.generator.builders;
 
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
+import jeffaschenk.tomcat.instance.generator.model.TomcatAvailableArchives;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
 import jeffaschenk.tomcat.util.ValidationHelper;
 
 import java.io.File;
@@ -97,6 +99,11 @@ public class TomcatInstanceBuilderForCLI extends TomcatInstanceBuilderBase imple
             }
 
             /**
+             * Obtain our Tomcat Available Archives and our default Archive Location...
+             */
+            TomcatAvailableArchives tomcatAvailableArchives = TomcatInstanceBuilderHelper.loadAvailableArchives();
+
+            /**
              * Begin Process ..
              */
             GENERATION_LOGGER.info("Generating "+tomcatInstance.toString());
@@ -104,7 +111,8 @@ public class TomcatInstanceBuilderForCLI extends TomcatInstanceBuilderBase imple
             /**
              * Pull Tomcat Binary archive from Internet ...
              */
-            if (!TomcatInstanceBuilderHelper.pullTomcatVersionFromApacheMirror(GENERATION_LOGGER, tomcatInstance)) {
+            if (!TomcatInstanceBuilderHelper.pullTomcatVersionFromApacheMirror(GENERATION_LOGGER,
+                    tomcatAvailableArchives, tomcatInstance)) {
                 GENERATION_LOGGER.error("Issue Occurred during Pulling Tomcat Archive from Internet, please try again!");
                 return false;
             }

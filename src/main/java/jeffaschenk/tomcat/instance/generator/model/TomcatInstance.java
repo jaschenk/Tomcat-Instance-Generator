@@ -1,4 +1,4 @@
-package jeffaschenk.tomcat.instance.generator.builders;
+package jeffaschenk.tomcat.instance.generator.model;
 
 import jeffaschenk.tomcat.knowledgebase.DefaultDefinitions;
 
@@ -127,6 +127,11 @@ public final class TomcatInstance {
      * Instance Properties to be set during Build...
      */
     private final List<TomcatInstanceProperty> instanceProperties;
+
+    /**
+     * Archive Associated to this Tomcat Instance.
+     */
+    private TomcatArchive tomcatArchive;
 
     /**
      * Tomcat Instance Default Constructor
@@ -420,25 +425,17 @@ public final class TomcatInstance {
      * Helper Methods
      * ***************************************************
      */
-
-    /**
-     * Return the Original referenced Download Archive.
-     *
-     * @return String containing fully qualified formulated Download Archive.
-     */
-    public String referenceDownloadedArchive() {
-        return getDestinationFolder().getAbsolutePath() + File.separator +
-                "apache-tomcat-" + getTomcatVersion().replaceFirst("v", "") + ".zip";
-    }
-
+    
     /**
      * Return the Original referenced Download Archive.
      *
      * @return String containing fully qualified formulated Download Archive.
      */
     public String referenceDownloadedArchiveFolder() {
-        return getDestinationFolder().getAbsolutePath() + File.separator +
-                "apache-tomcat-" + getTomcatVersion().replaceFirst("v", "");
+        if (tomcatArchive == null) {
+            throw new IllegalStateException("No Tomcat Archive has been Selected!");
+        }
+        return getDestinationFolder().getAbsolutePath() + File.separator + this.tomcatArchive.getName();
     }
 
     /**
@@ -447,9 +444,10 @@ public final class TomcatInstance {
      * @return String containing the formulated new Tomcat Instance folder, less a Parent.
      */
     public String referenceTomcatInstanceFolder() {
-        return getInstanceName() + "-" + getEnvironmentName() + "-" +
-                "apache-tomcat-" + getTomcatVersion().replaceFirst("v", "");
-
+        if (tomcatArchive == null) {
+            throw new IllegalStateException("No Tomcat Archive has been Selected!");
+        }
+        return getInstanceName() + "-" + getEnvironmentName() + "-" +this.tomcatArchive.getName();
     }
 
     /**
@@ -458,8 +456,11 @@ public final class TomcatInstance {
      * @return String containing the formulated new Tomcat Instance folder, less a Parent.
      */
     public String referenceTomcatInstanceYAML() {
+        if (tomcatArchive == null) {
+            throw new IllegalStateException("No Tomcat Archive has been Selected!");
+        }
         return getInstanceName() + "-" + getEnvironmentName() + "-" +
-                "apache-tomcat-" + getTomcatVersion().replaceFirst("v", "") + ".yaml";
+                this.tomcatArchive.getName() + ".yaml";
 
     }
 
@@ -562,5 +563,12 @@ public final class TomcatInstance {
          */
         return tomcatInstanceReplacementMap;
     }
-    
+
+    public TomcatArchive getTomcatArchive() {
+        return tomcatArchive;
+    }
+
+    public void setTomcatArchive(TomcatArchive tomcatArchive) {
+        this.tomcatArchive = tomcatArchive;
+    }
 }
