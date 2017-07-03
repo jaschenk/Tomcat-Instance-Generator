@@ -16,7 +16,7 @@ Provides easy configuration of a Tomcat Instance.
 * CLI Mode -- Driven by reading YAML Tomcat Instance Configurations
 * Runs on WIN or *NIX Environments
 
-##Configuration Aspects
+## Configuration Aspects
 * Instance Name, Environment, Tomcat Version
 * Ports
 * SSL Security
@@ -25,7 +25,7 @@ Provides easy configuration of a Tomcat Instance.
 * Instance Management Properties
 * YAML Configuration Management
 
-##Customizations
+## Customizations
 * Creates any new Directories in Instance Head
   * 'properties' 
 * Adds Additional Libraries into 'lib' Directory
@@ -34,7 +34,7 @@ Provides easy configuration of a Tomcat Instance.
 * Configures Files in Tomcat 'conf' Directory, server.xml ...
 * Generates new 'setenv.bat', 'setenv.sh' scripts for customizing Environment
 
-##Errata
+## Errata
 * No Full Validation against Memory Configuration selected!
 * Static Definitions:
   * Apache Mirror used: http://apache.mirrors.pair.com/tomcat
