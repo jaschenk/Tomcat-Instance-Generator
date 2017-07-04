@@ -3,6 +3,8 @@ package jeffaschenk.tomcat.instance.generator.builders;
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
+import jeffaschenk.tomcat.instance.generator.model.TomcatAvailableArchives;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
 
 import java.io.File;
 
@@ -76,9 +78,15 @@ public class TomcatInstanceBuilderForUI extends TomcatInstanceBuilderBase implem
             increaseProgress(1.0);
 
             /**
+             * Obtain our Tomcat Available Archives and our default Archive Location...
+             */
+            TomcatAvailableArchives tomcatAvailableArchives = TomcatInstanceBuilderHelper.loadAvailableArchives();
+
+            /**
              * Pull Tomcat Binary archive from Internet ...
              */
-            if (!TomcatInstanceBuilderHelper.pullTomcatVersionFromApacheMirror(GENERATION_LOGGER, tomcatInstance)) {
+            if (!TomcatInstanceBuilderHelper.pullTomcatVersionFromApacheMirror(GENERATION_LOGGER,
+                    tomcatAvailableArchives, tomcatInstance)) {
                 GENERATION_LOGGER.error("Issue Occurred during Pulling Tomcat Archive from Internet, please try again!");
                 return false;
             }

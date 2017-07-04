@@ -1,7 +1,6 @@
 package jeffaschenk.tomcat.instance.generator.builders;
 
-import jeffaschenk.tomcat.instance.generator.builders.TomcatInstance;
-import jeffaschenk.tomcat.instance.generator.builders.TomcatInstanceBuilderHelper;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
 import jeffaschenk.tomcat.instance.generator.logger.Log;
 import org.junit.FixMethodOrder;

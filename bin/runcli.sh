@@ -1,2 +1,3 @@
 #!/bin/bash
-java -jar ./TomcatInstanceGenerator-1.0.0.2-SNAPSHOT.jar ${@}
+ARCHIVES=-Dtc.archives=bin/Prod-TomcatKnowledgeBase.yaml
+java ${ARCHIVES} -jar ./TomcatInstanceGenerator-1.0.0.3-SNAPSHOT.jar ${@}

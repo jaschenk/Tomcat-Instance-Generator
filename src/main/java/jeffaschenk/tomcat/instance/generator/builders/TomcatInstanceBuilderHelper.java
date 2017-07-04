@@ -1,7 +1,10 @@
 package jeffaschenk.tomcat.instance.generator.builders;
 
 import jeffaschenk.tomcat.instance.generator.logger.GenerationLogger;
-
+import jeffaschenk.tomcat.instance.generator.model.TomcatArchive;
+import jeffaschenk.tomcat.instance.generator.model.TomcatAvailableArchives;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstance;
+import jeffaschenk.tomcat.instance.generator.model.TomcatInstanceProperty;
 import jeffaschenk.tomcat.knowledgebase.DefaultDefinitions;
 import jeffaschenk.tomcat.util.ResourceHelper;
 import org.apache.commons.io.FileUtils;
@@ -40,59 +43,37 @@ public class TomcatInstanceBuilderHelper {
     private static final String README = "README.txt";
 
     /**
-     * renameReferencedExplodedArtifact
-     * <p>
-     * Rename the exploded Artifact to a new Instance Name.
-     *
-     * @param GENERATION_LOGGER Logger
-     * @param tomcatInstance    POJO
-     * @return boolean Indicating if this process/method was successful or not.
-     */
-    protected static boolean renameReferencedExplodedArtifact(GenerationLogger GENERATION_LOGGER, TomcatInstance tomcatInstance) {
-        try {
-            File explodedArtifactFolder = new File(tomcatInstance.referenceDownloadedArchiveFolder());
-            if (explodedArtifactFolder.exists() && explodedArtifactFolder.isDirectory()) {
-                String newArtifactFolderName = tomcatInstance.referenceTomcatInstanceFolder();
-                File newArtifactFolder = new File(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
-                        newArtifactFolderName);
-                if (newArtifactFolder.exists()) {
-                    GENERATION_LOGGER.error("Unable to Rename Original Archive from: " + explodedArtifactFolder.getName() +
-                            " to " + newArtifactFolderName + ", as new Folder Already Exists!");
-                    return false;
-                }
-                GENERATION_LOGGER.info("Renaming Exploded Archive from: " + explodedArtifactFolder.getName() +
-                        " to " + newArtifactFolderName);
-                return explodedArtifactFolder.renameTo(newArtifactFolder);
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
      * Pull specified Version of Tomcat from Internet Download Site ...
      *
      * @param GENERATION_LOGGER Logger
      * @param tomcatInstance    POJO
      */
     protected static boolean pullTomcatVersionFromApacheMirror(GenerationLogger GENERATION_LOGGER,
+                                                               TomcatAvailableArchives tomcatAvailableArchives,
                                                                TomcatInstance tomcatInstance) {
         /**
-         * First check to see if the Artifact has already been pulled?
+         * First determine the Latest Release based upon our Short name.
+         */
+        TomcatArchive tomcatArchive =
+                tomcatAvailableArchives.getAvailableArchiveByShortName(tomcatInstance.getTomcatVersion());
+        if (tomcatArchive == null || tomcatArchive.getShortVersion() == null) {
+            GENERATION_LOGGER.error("Unable to determine a Download Archive for Tomcat Version: " +
+                    tomcatInstance.getTomcatVersion() + ", Notify Engineering to Support new Version of Tomcat!");
+            return false;
+        }
+        tomcatInstance.setTomcatArchive(tomcatArchive); // Set a Reference to archive used.
+        /**
+         * Now check to see if the Artifact has already been pulled?
          */
         if (validateTomcatDownloadedVersion(GENERATION_LOGGER, tomcatInstance, false)) {
             GENERATION_LOGGER.info("Using previously Downloaded Archive: " +
-                    tomcatInstance.referenceDownloadedArchive());
+                    tomcatArchive.getName() + ".zip");
             return true;
         }
         /**
          * Proceed to Pull Archive ...
          */
         GENERATION_LOGGER.info("Pulling Tomcat Version from Apache Mirror ...");
-        String tcVersionName = tomcatInstance.getTomcatVersion().replaceFirst("v", "");
 
         URL url = null;
         URLConnection con = null;
@@ -115,16 +96,16 @@ public class TomcatInstanceBuilderHelper {
             /**
              * Now construct the URL to use to Pull over Internet.
              */
-            url = new URL(DefaultDefinitions.APACHE_MIRRORS_HEAD_URL + "/" +
-                    tcHeadVersion + "/" + tomcatInstance.getTomcatVersion() + "/bin/apache-tomcat-" + tcVersionName + ".zip");
-
+            url = new URL(tomcatAvailableArchives.getApacheMirrorHeadUrl() + "/" +
+                    tcHeadVersion + "/v" + tomcatArchive.getShortVersion() + "/bin/" + tomcatArchive.getName() + ".zip");
             GENERATION_LOGGER.info("Using URL for Downloading Artifact: " + url.toString());
-            con = url.openConnection();
 
+            con = url.openConnection();
             BufferedInputStream bis = new BufferedInputStream(
                     con.getInputStream());
             BufferedOutputStream bos = new BufferedOutputStream(
-                    new FileOutputStream(tomcatInstance.referenceDownloadedArchive()));
+                    new FileOutputStream(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
+                            tomcatArchive.getName() + ".zip"));
             while ((i = bis.read()) != -1) {
                 bos.write(i);
             }
@@ -145,8 +126,9 @@ public class TomcatInstanceBuilderHelper {
 
     /**
      * Validate the Tomcat Version Archive from our Download
-     *  @param GENERATION_LOGGER Reference
-     *  @param tomcatInstance POJo
+     *
+     * @param GENERATION_LOGGER Reference
+     * @param tomcatInstance    POJO
      * @return boolean indicating if process was successful or not.
      */
     protected static boolean validateTomcatDownloadedVersion(GenerationLogger GENERATION_LOGGER,
@@ -156,9 +138,10 @@ public class TomcatInstanceBuilderHelper {
 
     /**
      * Validate the Tomcat Version Archive from our Download
-     *  @param GENERATION_LOGGER Reference
-     *  @param tomcatInstance POJO
-     *  @param verbose indicator for logging.
+     *
+     * @param GENERATION_LOGGER Reference
+     * @param tomcatInstance    POJO
+     * @param verbose           indicator for logging.
      * @return boolean indicating if process was successful or not.
      */
     protected static boolean validateTomcatDownloadedVersion(GenerationLogger GENERATION_LOGGER,
@@ -166,58 +149,55 @@ public class TomcatInstanceBuilderHelper {
         if (verbose) {
             GENERATION_LOGGER.info("Validating Tomcat Version Archive ...");
         }
+        /**
+         * Now determine the Latest Release based upon our Short name.
+         */
+        TomcatArchive tomcatArchive = tomcatInstance.getTomcatArchive();
+        if (tomcatArchive == null || tomcatArchive.getShortVersion() == null) {
+            GENERATION_LOGGER.error("Unable to determine a Download Archive for Tomcat Version: " +
+                    tomcatInstance.getTomcatVersion() + ", Notify Engineering to Support new Version of Tomcat!");
+            return false;
+        }
         try {
-            File archiveFile = new File(tomcatInstance.referenceDownloadedArchive());
+            File archiveFile = new File(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
+                    tomcatArchive.getName() + ".zip");
             if (!archiveFile.exists()) {
                 GENERATION_LOGGER.warn("Attempting to Validate previously Downloaded Archive: " + archiveFile.getAbsolutePath() +
                         ", however, the archive does not exist!");
                 return false;
             }
+
             /**
-             * Lookup the filename in our Validation Array.
+             * Validate the Size and CheckSums
              */
-            for (TomcatArchive entry : DefaultDefinitions.DEFAULT_TOMCAT_ARCHIVES) {
-                if (entry.getName().equals(archiveFile.getName())) {
-                    /**
-                     * Validate the Size and CheckSums
-                     */
-                    if (entry.getCheckSum().equalsIgnoreCase(getFileCheckSum(archiveFile.getAbsolutePath()))) {
-                        if (verbose) {
-                            GENERATION_LOGGER.info("Validated Downloaded Archive: " + archiveFile.getAbsolutePath() +
-                                ", CheckSum Correct.");
-                        }
-                    } else {
-                        if (verbose) {
-                            GENERATION_LOGGER.error("Downloaded Archive: " + archiveFile.getAbsolutePath() +
-                                    ", Expected CheckSum is incorrect, unable to continue!");
-                        }
-                        return false;
-                    }
-                    /**
-                     * Validate the Size.
-                     */
-                    if (archiveFile.length() == entry.getSize()) {
-                        if (verbose) {
-                            GENERATION_LOGGER.info("Validated Downloaded Archive: " + archiveFile.getAbsolutePath() +
-                                    ", File Size Correct.");
-                        }
-                        return true;
-                    } else {
-                        if (verbose) {
-                            GENERATION_LOGGER.error("Downloaded Archive: " + archiveFile.getAbsolutePath() +
-                                    ", File Size Not Correct, unable to continue!");
-                        }
-                        return false;
-                    }
+            if (tomcatArchive.getCheckSum().equalsIgnoreCase(getFileCheckSum(archiveFile.getAbsolutePath()))) {
+                if (verbose) {
+                    GENERATION_LOGGER.info("Validated Downloaded Archive: " + archiveFile.getAbsolutePath() +
+                            ", CheckSum Correct.");
                 }
+            } else {
+                if (verbose) {
+                    GENERATION_LOGGER.error("Downloaded Archive: " + archiveFile.getAbsolutePath() +
+                            ", Expected CheckSum is incorrect, unable to continue!");
+                }
+                return false;
             }
             /**
-             * Falling through indicates we did not find a file we were Validating in our Defaults Definition.
+             * Validate the Size.
              */
-            GENERATION_LOGGER.error("Attempted to Validate Downloaded Archive: " + archiveFile.getAbsolutePath() +
-                    ", however, did not find the Archive in our Default Lookup Table to Validate Size, " +
-                    "Notify Engineering, unable to continue!");
-            return false;
+            if (archiveFile.length() == tomcatArchive.getSize()) {
+                if (verbose) {
+                    GENERATION_LOGGER.info("Validated Downloaded Archive: " + archiveFile.getAbsolutePath() +
+                            ", File Size Correct.");
+                }
+                return true;
+            } else {
+                if (verbose) {
+                    GENERATION_LOGGER.error("Downloaded Archive: " + archiveFile.getAbsolutePath() +
+                            ", File Size Not Correct, unable to continue!");
+                }
+                return false;
+            }
         } catch (Exception e) {
             GENERATION_LOGGER.error("Exception encountered during exploding Tomcat Instance Download Archive Validation: " +
                     e.getMessage());
@@ -237,9 +217,20 @@ public class TomcatInstanceBuilderHelper {
     protected static boolean explodeTomcatVersionForCustomization(GenerationLogger GENERATION_LOGGER,
                                                                   TomcatInstance tomcatInstance) {
         /**
+         * Now determine the Latest Release based upon our Short name.
+         */
+        TomcatArchive tomcatArchive =
+                tomcatInstance.getTomcatArchive();
+        if (tomcatArchive == null || tomcatArchive.getShortVersion() == null) {
+            GENERATION_LOGGER.error("Unable to determine a Download Archive for Tomcat Version: " +
+                    tomcatInstance.getTomcatVersion() + ", Notify Engineering to Support new Version of Tomcat!");
+            return false;
+        }
+        /**
          * Check for a Previous Download exploded Head ...
          */
-        File headDirectory = new File(tomcatInstance.referenceDownloadedArchive().replaceFirst(".zip", ""));
+        File headDirectory = new File(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
+                tomcatArchive.getName());
         if (headDirectory.exists()) {
             GENERATION_LOGGER.error("Existing Unzip Directory Head: " + headDirectory.getAbsolutePath()
                     + ", already exists, unable to continue!");
@@ -252,7 +243,8 @@ public class TomcatInstanceBuilderHelper {
          */
         GENERATION_LOGGER.info("Exploding Tomcat Version Archive for Customizations ...");
         try {
-            unZipArchive(GENERATION_LOGGER, tomcatInstance.referenceDownloadedArchive(),
+            unZipArchive(GENERATION_LOGGER, tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
+                            tomcatArchive.getName() + ".zip",
                     tomcatInstance.getDestinationFolder().getAbsolutePath());
             return true;
         } catch (Exception e) {
@@ -262,6 +254,40 @@ public class TomcatInstanceBuilderHelper {
             /**
              * Indicate a Failure has Occurred
              */
+            return false;
+        }
+    }
+
+    /**
+     * renameReferencedExplodedArtifact
+     * <p>
+     * Rename the exploded Artifact to a new Instance Name.
+     *
+     * @param GENERATION_LOGGER Logger
+     * @param tomcatInstance    POJO
+     * @return boolean Indicating if this process/method was successful or not.
+     */
+    protected static boolean renameReferencedExplodedArtifact(GenerationLogger GENERATION_LOGGER,
+                                                              TomcatInstance tomcatInstance) {
+        try {
+            File explodedArtifactFolder = new File(tomcatInstance.referenceDownloadedArchiveFolder());
+            if (explodedArtifactFolder.exists() && explodedArtifactFolder.isDirectory()) {
+                String newArtifactFolderName = tomcatInstance.referenceTomcatInstanceFolder();
+                File newArtifactFolder = new File(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
+                        newArtifactFolderName);
+                if (newArtifactFolder.exists()) {
+                    GENERATION_LOGGER.error("Unable to Rename Original Archive from: " + explodedArtifactFolder.getName() +
+                            " to " + newArtifactFolderName + ", as new Folder Already Exists!");
+                    return false;
+                }
+                GENERATION_LOGGER.info("Renaming Exploded Archive from: " + explodedArtifactFolder.getName() +
+                        " to " + newArtifactFolderName);
+                return explodedArtifactFolder.renameTo(newArtifactFolder);
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -355,14 +381,14 @@ public class TomcatInstanceBuilderHelper {
 
     /**
      * Zip File into Archive
-     * 
+     *
      * @param GENERATION_LOGGER Reference
-     * @param zipFilePath Zip file Destination.
-     * @param fileFolder Folder to be zipped Up ...
+     * @param zipFilePath       Zip file Destination.
+     * @param fileFolder        Folder to be zipped Up ...
      * @throws IOException
      */
     protected static boolean zipFile(GenerationLogger GENERATION_LOGGER,
-                                  String zipFilePath, String fileFolder) throws IOException {
+                                     String zipFilePath, String fileFolder) throws IOException {
         /**
          * First get All Nodes with Folder
          */
@@ -370,7 +396,7 @@ public class TomcatInstanceBuilderHelper {
         generateFileListForCompression(new File(fileFolder), fileList);
         File sourceFolder = new File(fileFolder);
         byte[] buffer = new byte[8192];
-        try{
+        try {
             FileOutputStream fos = new FileOutputStream(zipFilePath);
             ZipOutputStream zos = new ZipOutputStream(fos);
 
@@ -378,9 +404,9 @@ public class TomcatInstanceBuilderHelper {
             /**
              * Loop Over Files
              */
-            for(String filename : fileList){
-                String zipEntryName = filename.substring(sourceFolder.getParent().length()+1, filename.length());
-                ZipEntry ze= new ZipEntry(zipEntryName);
+            for (String filename : fileList) {
+                String zipEntryName = filename.substring(sourceFolder.getParent().length() + 1, filename.length());
+                ZipEntry ze = new ZipEntry(zipEntryName);
                 zos.putNextEntry(ze);
                 FileInputStream in =
                         new FileInputStream(filename);
@@ -397,7 +423,7 @@ public class TomcatInstanceBuilderHelper {
             zos.closeEntry();
             zos.close();
             return true;
-        }catch(IOException ex){
+        } catch (IOException ex) {
             GENERATION_LOGGER.error(ex.getMessage());
             ex.printStackTrace();
             return false;
@@ -407,15 +433,16 @@ public class TomcatInstanceBuilderHelper {
     /**
      * Traverse a directory and get all files,
      * and add the file into fileList
+     *
      * @param node file or directory
      */
-    protected static void generateFileListForCompression(File node, List<String> fileList){
-        if(node.isFile()){
+    protected static void generateFileListForCompression(File node, List<String> fileList) {
+        if (node.isFile()) {
             fileList.add(node.getAbsolutePath());
         }
-        if(node.isDirectory()){
+        if (node.isDirectory()) {
             String[] subNote = node.list();
-            for(String filename : subNote){
+            for (String filename : subNote) {
                 generateFileListForCompression(new File(node, filename), fileList);
             }
         }
@@ -461,7 +488,7 @@ public class TomcatInstanceBuilderHelper {
         File destinationFolder = new File(tomcatInstance.getDestinationFolder().getAbsolutePath() + File.separator +
                 tomcatInstance.referenceTomcatInstanceFolder());
         if (destinationFolder.exists() && destinationFolder.isDirectory()) {
-            for(int i = 0; i<EMPTY_DIRECTORIES_TO_BE_SEEDED.length; i++) {
+            for (int i = 0; i < EMPTY_DIRECTORIES_TO_BE_SEEDED.length; i++) {
                 String seedDirectory = EMPTY_DIRECTORIES_TO_BE_SEEDED[i];
                 File newDirectory = new File(destinationFolder + File.separator + seedDirectory);
                 if (!newDirectory.exists()) {
@@ -473,7 +500,7 @@ public class TomcatInstanceBuilderHelper {
                  * Now Add a README.txt File to describe the Directory.
                  */
                 ResourceHelper.persistStringDataAsFile(EMPTY_DIRECTORIES_README_CONTENTS[i],
-                        newDirectory.getAbsolutePath()+File.separator+README);
+                        newDirectory.getAbsolutePath() + File.separator + README);
             }
             return true;
         } else {
@@ -592,6 +619,7 @@ public class TomcatInstanceBuilderHelper {
 
     /**
      * Copy over our new YAML Configuration File into the Base of the Tomcat Instance.
+     *
      * @param tomcatInstance POJO
      * @throws Exception thrown if issues arise ...
      */
@@ -901,7 +929,7 @@ public class TomcatInstanceBuilderHelper {
          * Create Additional Internal Filters for Management Properties, which if have not been modified,
          * should be replaced.
          */
-        Map<String,String> internalReplacementMap = new HashMap<>();
+        Map<String, String> internalReplacementMap = new HashMap<>();
         internalReplacementMap.put(TOMCAT_INSTANCE_NAME_TAG, tomcatInstance.getInstanceName());
         internalReplacementMap.put(TOMCAT_INSTANCE_HOSTNAME_TAG, getThisDefaultInetAddress());
         internalReplacementMap.put(TOMCAT_PRIMARY_PORT_TAG, tomcatInstance.getPrimaryPort().toString());
@@ -959,8 +987,8 @@ public class TomcatInstanceBuilderHelper {
      */
     protected static String getNIXValue(String inValue) {
         if (inValue.startsWith("\"") && inValue.endsWith("\"")) {
-            return "\\\""+inValue.substring(1,inValue.length()-1)+"\\\"";
-        }  else {
+            return "\\\"" + inValue.substring(1, inValue.length() - 1) + "\\\"";
+        } else {
             return inValue;
         }
     }
@@ -981,6 +1009,7 @@ public class TomcatInstanceBuilderHelper {
 
     /**
      * Execute a Local System Command and pull in it's response.
+     *
      * @param execCommand System command to be executed.
      * @return String containing contents of system command response.
      * @throws IOException thrown if IO Exception occurs.
@@ -1006,6 +1035,32 @@ public class TomcatInstanceBuilderHelper {
         } catch (Exception e) {
             return "localhost";
         }
+    }
+
+    /**
+     * loadAvailableArchives
+     *
+     * @return TomcatInstance instantiate from persisted Configuraiton File.
+     * @throws IOException Thrown if issues reading YAML File.
+     */
+    public static final TomcatAvailableArchives loadAvailableArchives() throws IOException {
+        Yaml yaml = new Yaml(new Constructor(Map.class));
+        /**
+         * Check for an Available Archive Configuration File...
+         */
+        String propertyFileName = System.getProperty(DefaultDefinitions.TOMCAT_ARCHIVE_PROPERTY_NAME);
+        if (propertyFileName == null || propertyFileName.isEmpty()) {
+            /**
+             * No remote Archives will be Available to pull down...
+             */
+            return new TomcatAvailableArchives();
+        }
+        /**
+         * We have a specified Archive Configuration, so parse and have those archives available for selection.
+         */
+        InputStream input = new FileInputStream(new File(propertyFileName));
+        Map<String, Object> mapFromYaml = (Map) yaml.load(input);
+        return new TomcatAvailableArchives(mapFromYaml);
     }
 
 }

@@ -16,7 +16,33 @@ Provides easy configuration of a Tomcat Instance.
 * CLI Mode -- Driven by reading YAML Tomcat Instance Configurations
 * Runs on WIN or *NIX Environments
 
-##Configuration Aspects
+## Runtime Configuration
+* To drive the selection of Tomcat Archive's to be available for download, a new externalized configuration
+  file has been added. This allows externalizing the downloadable point releases from the specified mirror location.
+
+* Specifying this configuration is performed by a runtime Java Property named: **tc.archives**.  This property value
+  must reference the fully qualified file-system path of the **YAML Tomcat Archives Configuration** file.
+
+###  YAML Tomcat Archives Configuration Format
+  ```YAML
+     apacheMirrorHeadUrl: http://apache.cs.utah.edu/tomcat
+     tomcatVersion_8.5.16: apache-tomcat-8.5.16 v8.5 true 9992463 13bf717a94a7b8d5296e678a70004a65f0c0409f
+  ```
+
+  * Where **apacheMirrorHeadUrl** provides the current Apache Mirror, proper mirror URL must be specified or archive may not
+  be found.
+
+  * Where **tomcatVersion_8.5.xx** represents a multi-valued row for a specific Tomcat point release archive.
+    * The First parameter is the name of the actual Archive less, the ".zip" suffix.
+    * The Second parameter is the Short Name of the Archive.
+    * The Third parameter is an boolean, indicating if archive is available or not. Example, 'true' or 'false'.
+    * The Forth parameter is the Size in bytes of the actual archive. Used to validate Download of archive.
+    * The Fifth parameter is the Check Sum of the actual archive, which was generated using the
+      **jeffaschenk.tomcat.util.FileCheckSumUtility** runtime utility class.
+      This value is used to validate Download of archive.
+
+
+## Configuration Aspects
 * Instance Name, Environment, Tomcat Version
 * Ports
 * SSL Security
@@ -25,7 +51,7 @@ Provides easy configuration of a Tomcat Instance.
 * Instance Management Properties
 * YAML Configuration Management
 
-##Customizations
+## Customizations
 * Creates any new Directories in Instance Head
   * 'properties' 
 * Adds Additional Libraries into 'lib' Directory
@@ -34,15 +60,16 @@ Provides easy configuration of a Tomcat Instance.
 * Configures Files in Tomcat 'conf' Directory, server.xml ...
 * Generates new 'setenv.bat', 'setenv.sh' scripts for customizing Environment
 
-##Errata
+## Updates
+* Static Definition Removed for externalized configuration:
+  * Apache Mirror specified using runtime configuration YAML properties.
+* Ability to add point release archives that are available for download and approved by your DevOps Organization.
+
+## Errata
 * No Full Validation against Memory Configuration selected!
 * Static Definitions:
-  * Apache Mirror used: http://apache.mirrors.pair.com/tomcat
   * ManageCat License Key
 * Internet access required, as initial copy of Apache Tomcat is Downloaded if not detected from previous generation.
-* Currently only V8.5.14 is available for download.
-  * To add a version, simple modify the 'Default Definitions' class to add the new version specifications.
-    * Name, Length of Archive, SHA-1 Hash of Artifact.
 * Tool has capability of multiple versions, but V9 is not at a complete or final milestone.
 * ManageCat: Restart Agent still needs some manual changes.
 
@@ -68,5 +95,5 @@ Building primary Artifact, which will contain a full dependency bundle.  Simple 
 Obtain the Release from ![here](https://github.com/jaschenk/Tomcat-Instance-Generator/releases/download/v1.0.0.2/Tomcat-Instance-Generator_distribution_20170427.zip). Use the applicable scripts in the 'app' directory of the distribution.  For Bootstrapping the GUI on Windows, please use the pre-built executable to properly Bootstrap JavaFX, which is found directly in the distribution.
 
 ## Main UI
-![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/master/doc/images/TomcatInstanceGenerator_01.png)
+![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/externalize/doc/images/TomcatInstanceGenerator_02.png)
 
