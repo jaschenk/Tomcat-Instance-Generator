@@ -95,5 +95,5 @@ Building primary Artifact, which will contain a full dependency bundle.  Simple 
 Obtain the Release from ![here](https://github.com/jaschenk/Tomcat-Instance-Generator/releases/download/v1.0.0.2/Tomcat-Instance-Generator_distribution_20170427.zip). Use the applicable scripts in the 'app' directory of the distribution.  For Bootstrapping the GUI on Windows, please use the pre-built executable to properly Bootstrap JavaFX, which is found directly in the distribution.
 
 ## Main UI
-![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/master/doc/images/TomcatInstanceGenerator_01.png)
+![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/externalize/doc/images/TomcatInstanceGenerator_02.png)
 
