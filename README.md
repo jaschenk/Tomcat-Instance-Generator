@@ -16,6 +16,31 @@ Provides easy configuration of a Tomcat Instance.
 * CLI Mode -- Driven by reading YAML Tomcat Instance Configurations
 * Runs on WIN or *NIX Environments
 
+## Runtime Configuration
+* To drive the selection of Tomcat Archive's to be available for download, a new externalized configuration
+  file has been added. This allows externalizing the downloadable point releases from the specified mirror location.
+
+* Specifying this configuration is performed by a runtime Java Property named: **tc.archives**.  This properties value
+  must reference the fully qualified file-system path of the **YAML Tomcat Archives Configuration** file.
+
+###  YAML Tomcat Archives Configuration Format
+  ...
+     apacheMirrorHeadUrl: http://apache.cs.utah.edu/tomcat
+     tomcatVersion_8.5.16: apache-tomcat-8.5.16 v8.5 true 9992463 13bf717a94a7b8d5296e678a70004a65f0c0409f
+  ...
+
+  * Where 'apacheMirrorHeadUrl' provides the current Apache Mirror, proper mirror URL must be specified or archive may not
+  be found.
+
+  * Where 'tomcatVersion_8.5.xx' provides a multi-valued row for a specific Tomcat point release archive.
+  ** The First parameter is the name of the actual Archive less, the ".zip" suffix.
+  ** The Second parameter is the Short Name of the Archive.
+  ** The Third parameter is an boolean, indicating if archive is available or not.
+  ** The Forth parameter is the Size in bytes of the actual archive. Used to validate Download of archive.
+  ** The Fifth parameter is the Check Sum of the actual archive, which was generated using the
+     '''jeffaschenk.tomcat.util.FileCheckSumUtility''' runtime utility.  This value is used to validate Download of archive.
+
+
 ## Configuration Aspects
 * Instance Name, Environment, Tomcat Version
 * Ports
@@ -34,15 +59,16 @@ Provides easy configuration of a Tomcat Instance.
 * Configures Files in Tomcat 'conf' Directory, server.xml ...
 * Generates new 'setenv.bat', 'setenv.sh' scripts for customizing Environment
 
+## Updates
+* Static Definition Removed for externalized configuration:
+  * Apache Mirror specified using runtime configuration YAML properties.
+* Ability to add point release archives that are available for download and approved by your DevOps Organization.
+
 ## Errata
 * No Full Validation against Memory Configuration selected!
 * Static Definitions:
-  * Apache Mirror used: http://apache.mirrors.pair.com/tomcat
   * ManageCat License Key
 * Internet access required, as initial copy of Apache Tomcat is Downloaded if not detected from previous generation.
-* Currently only V8.5.14 is available for download.
-  * To add a version, simple modify the 'Default Definitions' class to add the new version specifications.
-    * Name, Length of Archive, SHA-1 Hash of Artifact.
 * Tool has capability of multiple versions, but V9 is not at a complete or final milestone.
 * ManageCat: Restart Agent still needs some manual changes.
 
