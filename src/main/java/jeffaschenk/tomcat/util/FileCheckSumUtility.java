@@ -24,7 +24,7 @@ public class FileCheckSumUtility {
         for(String filename : args) {
             File file = new File(filename);
             if (file.exists())  {
-                System.out.println("File:'"+filename+"', Byte Length = "+file.length()+
+                System.out.println("File:'"+filename+"', Byte Length = '"+file.length()+
                     "', CheckSum = '"+TomcatInstanceBuilderHelper.getFileCheckSum(filename)+"'");
             } else {
                 System.out.println("File:'"+filename+"', does not exist!'");
