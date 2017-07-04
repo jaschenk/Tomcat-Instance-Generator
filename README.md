@@ -92,7 +92,7 @@ Building primary Artifact, which will contain a full dependency bundle.  Simple 
   To build the JavaFX Artifact to execute on Windows, I have used IntelliJ to create an Artifact bundle containing an executable Windows bootstrap program wrapper.  For Linux, you simple use the supplied scripts in the distribution. 
 
 ## Running
-Obtain the Release from ![here](https://github.com/jaschenk/Tomcat-Instance-Generator/releases/download/v1.0.0.2/Tomcat-Instance-Generator_distribution_20170427.zip). Use the applicable scripts in the 'app' directory of the distribution.  For Bootstrapping the GUI on Windows, please use the pre-built executable to properly Bootstrap JavaFX, which is found directly in the distribution.
+Obtain the Release from [here](https://github.com/jaschenk/Tomcat-Instance-Generator/releases/download/v1.0.0.3/Tomcat-Instance-Generator_distribution_20170704.zip). Use the applicable scripts in the 'app' directory of the distribution.  For Bootstrapping the GUI on Windows, please use the pre-built executable to properly Bootstrap JavaFX, which is found directly in the distribution.
 
 ## Main UI
 ![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/master/doc/images/TomcatInstanceGenerator_02.png)
