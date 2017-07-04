@@ -97,3 +97,44 @@ Obtain the Release from ![here](https://github.com/jaschenk/Tomcat-Instance-Gene
 ## Main UI
 ![Tomcat Instance Generator UI](https://raw.githubusercontent.com/jaschenk/Tomcat-Instance-Generator/externalize/doc/images/TomcatInstanceGenerator_02.png)
 
+
+##  Sample of YAML Tomcat Instance Generator File Generated and can be used as input via cli.
+  ```YAML
+     destinationFolder: /tmp/MyTomcatInstanceWorkSpace
+     instanceManagementProperties:
+     - {propertyName: '# com.managecat.controller.url', propertyValue: <MANAGECAT_SERVER>/controller/}
+     - {propertyName: '# com.managecat.collector.url', propertyValue: <MANAGECAT_SERVER>/collector/}
+     - {propertyName: '# com.managecat.console.agent.groupname', propertyValue: Development}
+     - {propertyName: '# com.managecat.console.agent.servername', propertyValue: '${TOMCAT_INSTANCE_NAME}'}
+     - {propertyName: '# com.managecat.console.agent.hostname', propertyValue: '${TOMCAT_INSTANCE_HOSTNAME}'}
+     - {propertyName: '# com.managecat.console.agent.port', propertyValue: '${TOMCAT_PRIMARY_PORT}'}
+     - {propertyName: '# com.managecat.console.agent.contextname', propertyValue: console}
+     - {propertyName: '# com.managecat.console.agent.secure', propertyValue: 'false'}
+     - {propertyName: '# com.managecat.console.agent.accountkey', propertyValue: '00000000000000000000000000000000'}
+     - {propertyName: '# com.sun.management.jmxremote', propertyValue: ''}
+     - {propertyName: '# com.sun.management.jmxremote.port', propertyValue: '65420'}
+     - {propertyName: '# com.sun.management.jmxremote.ssl', propertyValue: 'false'}
+     - {propertyName: '# com.sun.management.jmxremote.authenticate', propertyValue: 'false'}
+     shutdownPort: 18005
+     instanceProperties:
+     - {propertyName: welcome.message, propertyValue: '"Hello to Tomcat Generation Utility"'}
+     jvmOptionXmx: 2g
+     tomcatVersion: v8.5
+     keystoreCredentials: ''
+     instanceName: residual-afterlife-001
+     protocolSecurePort: org.apache.coyote.http11.Http11NioProtocol
+     ajpPort: 18009
+     keystoreSourceFilename: ''
+     jvmOptionXms: 2g
+     instanceManagement: false
+     primaryPort: 18080
+     jvmOptionXss: 256m
+     jvmOptions: [-server, '# -Xdebug', '# -Xrunjdwp:transport=dt_socket,address=64420,suspend=n,server=y']
+     securePort: null
+     environmentName: DEV
+     protocolPrimaryPort: HTTP/1.1
+     instanceUUID: 8d3007b8-4069-4c8a-baa2-f09628e0fe85
+     compressed: false
+     jvmOptionXXMaxMetaspaceSize: 768m
+     secureInstance: false
+  ```
