@@ -21,7 +21,7 @@ Provides easy configuration of a Tomcat Instance.
   file has been added. This allows externalizing the downloadable point releases from the specified mirror location.
 
 * Specifying this configuration is performed by a runtime Java Property named: **tc.archives**.  This properties value
-  must reference the fully qualified file-system path of the *YAML Tomcat Archives Configuration* file.
+  must reference the fully qualified file-system path of the **YAML Tomcat Archives Configuration** file.
 
 ###  YAML Tomcat Archives Configuration Format
   ```YAML
@@ -29,16 +29,17 @@ Provides easy configuration of a Tomcat Instance.
      tomcatVersion_8.5.16: apache-tomcat-8.5.16 v8.5 true 9992463 13bf717a94a7b8d5296e678a70004a65f0c0409f
   ```
 
-  * Where 'apacheMirrorHeadUrl' provides the current Apache Mirror, proper mirror URL must be specified or archive may not
+  * Where **apacheMirrorHeadUrl** provides the current Apache Mirror, proper mirror URL must be specified or archive may not
   be found.
 
-  * Where 'tomcatVersion_8.5.xx' provides a multi-valued row for a specific Tomcat point release archive.
+  * Where **tomcatVersion_8.5.xx** provides a multi-valued row for a specific Tomcat point release archive.
    * The First parameter is the name of the actual Archive less, the ".zip" suffix.
    * The Second parameter is the Short Name of the Archive.
    * The Third parameter is an boolean, indicating if archive is available or not.
    * The Forth parameter is the Size in bytes of the actual archive. Used to validate Download of archive.
    * The Fifth parameter is the Check Sum of the actual archive, which was generated using the
-     *jeffaschenk.tomcat.util.FileCheckSumUtility* runtime utility.  This value is used to validate Download of archive.
+     **jeffaschenk.tomcat.util.FileCheckSumUtility** runtime utility class.
+     This value is used to validate Download of archive.
 
 
 ## Configuration Aspects
