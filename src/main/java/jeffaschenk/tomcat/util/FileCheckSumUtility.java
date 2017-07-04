@@ -2,6 +2,8 @@ package jeffaschenk.tomcat.util;
 
 import jeffaschenk.tomcat.instance.generator.builders.TomcatInstanceBuilderHelper;
 
+import java.io.File;
+
 /**
  * FileCheckSumUtility
  */
@@ -20,8 +22,13 @@ public class FileCheckSumUtility {
          * Iterate over all Files and Produce CheckSums.
          */
         for(String filename : args) {
-            System.out.println("File:'"+filename+"', CheckSum = '"+
-                    TomcatInstanceBuilderHelper.getFileCheckSum(filename)+"'");
+            File file = new File(filename);
+            if (file.exists())  {
+                System.out.println("File:'"+filename+"', Byte Length = "+file.length()+
+                    "', CheckSum = '"+TomcatInstanceBuilderHelper.getFileCheckSum(filename)+"'");
+            } else {
+                System.out.println("File:'"+filename+"', does not exist!'");
+            }
         }
     }
 }
