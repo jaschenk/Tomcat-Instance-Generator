@@ -24,10 +24,10 @@ Provides easy configuration of a Tomcat Instance.
   must reference the fully qualified file-system path of the **YAML Tomcat Archives Configuration** file.
 
 ###  YAML Tomcat Archives Configuration Format
-  ...
+  ```YAML
      apacheMirrorHeadUrl: http://apache.cs.utah.edu/tomcat
      tomcatVersion_8.5.16: apache-tomcat-8.5.16 v8.5 true 9992463 13bf717a94a7b8d5296e678a70004a65f0c0409f
-  ...
+  ```
 
   * Where 'apacheMirrorHeadUrl' provides the current Apache Mirror, proper mirror URL must be specified or archive may not
   be found.
