@@ -20,7 +20,7 @@ Provides easy configuration of a Tomcat Instance.
 * To drive the selection of Tomcat Archive's to be available for download, a new externalized configuration
   file has been added. This allows externalizing the downloadable point releases from the specified mirror location.
 
-* Specifying this configuration is performed by a runtime Java Property named: **tc.archives**.  This properties value
+* Specifying this configuration is performed by a runtime Java Property named: **tc.archives**.  This property value
   must reference the fully qualified file-system path of the **YAML Tomcat Archives Configuration** file.
 
 ###  YAML Tomcat Archives Configuration Format
