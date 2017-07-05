@@ -34,4 +34,6 @@ public final class ReplacementDefinitions {
     public static final String TOMCAT_INSTANCE_PROPERTIES = "${INSTANCE_PROPERTIES}";
     public static final String TOMCAT_INSTANCE_MANAGEMENT_PROPERTIES = "${INSTANCE_MANAGEMENT_PROPERTIES}";
 
+    public static final String MANAGECAT_LICENSE_KEY_TAG = "${MANAGECAT_LICENSE_KEY_TAG}";
+    
 }

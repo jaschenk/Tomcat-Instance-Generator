@@ -13,6 +13,7 @@ import java.util.Map;
 import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.TOMCAT_INSTANCE_HOSTNAME_TAG;
 import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.TOMCAT_INSTANCE_NAME_TAG;
 import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.TOMCAT_PRIMARY_PORT_TAG;
+import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.MANAGECAT_LICENSE_KEY_TAG;
 
 /**
  * DefaultDefinitions
@@ -21,21 +22,28 @@ import static jeffaschenk.tomcat.knowledgebase.ReplacementDefinitions.TOMCAT_PRI
  */
 public final class DefaultDefinitions {
     /**
-     * External Property Name
+     * External Property Names
      */
     public static final String TOMCAT_ARCHIVE_PROPERTY_NAME =
             "tc.archives";
+
+    /**
+     * ManageCat Specifics...
+     */
+    public static final String MANAGECAT_LICENSE_KEY_PROPERTY_NAME =
+            "tc.managecat.license.key";
+
+    public static final String DEFAULT_MANAGECAT_LICENSE_KEY_VALUE =
+            "00000000000000000000000000000000";
+
+    public static final String MANAGECAT_LICENSE_KEY_INTERNAL_PROPERTY_NAME =
+            "MANAGECAT_LICENSE_KEY_TAG";
+    
     /**
      * Constants
      */
     protected static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     protected static SimpleDateFormat DATE_TIME_ZONE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a z");
-
-    /**
-     * ManageCat License Key for Managing Tomcat Instances.
-     */
-    public static final String MANAGECAT_LICENSE_KEY =
-            "00000000000000000000000000000000";
 
     /**
      * Apache Tomcat Mirror Version Folders
@@ -142,7 +150,7 @@ public final class DefaultDefinitions {
                 "# com.managecat.console.agent.secure","false");
 
         ADD_DEFAULT_VALUE_TO_PROPERTIES(DEFAULT_MANAGEMENT_PROPERTY_ROWS,
-                "# com.managecat.console.agent.accountkey",MANAGECAT_LICENSE_KEY);
+                "# com.managecat.console.agent.accountkey", MANAGECAT_LICENSE_KEY_TAG);
 
         ADD_DEFAULT_VALUE_TO_PROPERTIES(DEFAULT_MANAGEMENT_PROPERTY_ROWS,
                 "# com.sun.management.jmxremote","");

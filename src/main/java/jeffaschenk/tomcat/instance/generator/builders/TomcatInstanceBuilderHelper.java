@@ -935,6 +935,13 @@ public class TomcatInstanceBuilderHelper {
         internalReplacementMap.put(TOMCAT_PRIMARY_PORT_TAG, tomcatInstance.getPrimaryPort().toString());
 
         /**
+         * Obtain our ManageCat License Information and other specifics if necessary.
+         */
+        Map<String, String> manageCatResolvedProperties = resolvedExternalManagementProperties();
+        internalReplacementMap.put(MANAGECAT_LICENSE_KEY_TAG,
+                manageCatResolvedProperties.get(DefaultDefinitions.MANAGECAT_LICENSE_KEY_INTERNAL_PROPERTY_NAME));
+
+        /**
          * If the Management Options was specified, add the applicable Replacements.
          */
         boolean WIN = binResourceName.endsWith(".bat");
@@ -1063,4 +1070,26 @@ public class TomcatInstanceBuilderHelper {
         return new TomcatAvailableArchives(mapFromYaml);
     }
 
+    /**
+     * resolvedExternalManagementProperties
+     * Obtain any Externalized Management Properties.
+     *
+     * @return Map containing resolved Properties.
+     */
+    public static Map<String,String> resolvedExternalManagementProperties() {
+        Map<String,String> resolvedProperties = new HashMap<>();
+        /**
+         * Get the ManageCat License Key Property
+         */
+        String value = System.getProperty(DefaultDefinitions.MANAGECAT_LICENSE_KEY_PROPERTY_NAME);
+        if (value == null || value.isEmpty()) {
+            value = DefaultDefinitions.DEFAULT_MANAGECAT_LICENSE_KEY_VALUE;
+        }
+        resolvedProperties.put(DefaultDefinitions.MANAGECAT_LICENSE_KEY_INTERNAL_PROPERTY_NAME, value);
+        /**
+         * return the Resolved Properties
+         */
+        return resolvedProperties;
+    }
+    
 }
